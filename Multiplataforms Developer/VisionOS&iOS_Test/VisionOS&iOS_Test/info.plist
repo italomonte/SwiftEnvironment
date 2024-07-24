@@ -1,0 +1,13 @@
+//
+//  info.plist
+//  VisionOS&iOS_Test
+//
+//  Created by Italo Guilherme Monte on 24/07/24.
+//
+
+import Foundation
+<key>NSBonjourServices</key>
+ <array>
+  <string>_nearby-devices._tcp</string>
+  <string>_nearby-devices._upd</string>
+ </array>

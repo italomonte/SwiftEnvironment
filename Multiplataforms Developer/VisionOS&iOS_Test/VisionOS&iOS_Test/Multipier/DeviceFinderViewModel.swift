@@ -11,8 +11,8 @@ import CoreLocation
 
 class DeviceFinderViewModel: NSObject, ObservableObject {
     
-    private let browser: MCNearbyServiceBrowser
     private let advertiser: MCNearbyServiceAdvertiser
+    private let browser: MCNearbyServiceBrowser
     private let session: MCSession
     private let serviceType = "nearby-devices"
     @Published var peers: [PeerDevice] = []

@@ -22,6 +22,7 @@
 		6F3C5EFC2C50E65600B6807B /* VisionOS_iOS_Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VisionOS_iOS_Test.entitlements; sourceTree = "<group>"; };
 		6F3C5EFE2C50E65600B6807B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6F3C5F062C50E88700B6807B /* DeviceFinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceFinderViewModel.swift; sourceTree = "<group>"; };
+		6FABF69F2C51012B00995357 /* VisionOS-iOS-Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "VisionOS-iOS-Test-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		6F3C5EF52C50E65500B6807B /* VisionOS&iOS_Test */ = {
 			isa = PBXGroup;
 			children = (
+				6FABF69F2C51012B00995357 /* VisionOS-iOS-Test-Info.plist */,
 				6F3C5F052C50E87700B6807B /* Multipier */,
 				6F3C5EF62C50E65500B6807B /* VisionOS_iOS_TestApp.swift */,
 				6F3C5EF82C50E65500B6807B /* ContentView.swift */,
@@ -286,6 +288,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VisionOS-iOS-Test-Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -326,6 +330,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VisionOS-iOS-Test-Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
