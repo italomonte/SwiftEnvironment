@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+import RealityKit
+
+#if os(visionOS)
+import RealityContent
+#endif
+
+
 struct ContentView: View {
     @ObservedObject var model = DeviceFinderViewModel()
 
@@ -57,6 +64,8 @@ struct ContentViewTwo: View {
     }
 }
 
-#Preview {
+
+
+#Preview() {
     ContentView()
 }

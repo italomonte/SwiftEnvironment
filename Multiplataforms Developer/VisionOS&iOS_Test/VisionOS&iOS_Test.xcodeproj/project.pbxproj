@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		6F3C5EFB2C50E65600B6807B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C5EFA2C50E65600B6807B /* Assets.xcassets */; };
 		6F3C5EFF2C50E65600B6807B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C5EFE2C50E65600B6807B /* Preview Assets.xcassets */; };
 		6F3C5F072C50E88700B6807B /* DeviceFinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3C5F062C50E88700B6807B /* DeviceFinderViewModel.swift */; };
+		6F6EF2F52C517C70007F61F4 /* RealityContent in Frameworks */ = {isa = PBXBuildFile; platformFilters = (xros, ); productRef = 6F6EF2F42C517C70007F61F4 /* RealityContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,17 +31,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F6EF2F52C517C70007F61F4 /* RealityContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F17C56A2C5177C100843740 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6F3C5EEA2C50E65500B6807B = {
 			isa = PBXGroup;
 			children = (
 				6F3C5EF52C50E65500B6807B /* VisionOS&iOS_Test */,
 				6F3C5EF42C50E65500B6807B /* Products */,
+				6F17C56A2C5177C100843740 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +108,9 @@
 			dependencies = (
 			);
 			name = "VisionOS&iOS_Test";
+			packageProductDependencies = (
+				6F6EF2F42C517C70007F61F4 /* RealityContent */,
+			);
 			productName = "VisionOS&iOS_Test";
 			productReference = 6F3C5EF32C50E65500B6807B /* VisionOS&iOS_Test.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 6F3C5EEA2C50E65500B6807B;
+			packageReferences = (
+				6FE13D7D2C5132F50038D9D1 /* XCLocalSwiftPackageReference "../../../Fifis/RealityContent" */,
+			);
 			productRefGroup = 6F3C5EF42C50E65500B6807B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -289,6 +305,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VisionOS-iOS-Test-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.family-games";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -301,7 +318,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -331,6 +348,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VisionOS-iOS-Test-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.family-games";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -343,7 +361,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -381,6 +399,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		6FE13D7D2C5132F50038D9D1 /* XCLocalSwiftPackageReference "../../../Fifis/RealityContent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../Fifis/RealityContent;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6F6EF2F42C517C70007F61F4 /* RealityContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FE13D7D2C5132F50038D9D1 /* XCLocalSwiftPackageReference "../../../Fifis/RealityContent" */;
+			productName = RealityContent;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6F3C5EEB2C50E65500B6807B /* Project object */;
 }
