@@ -31,6 +31,18 @@
     MacsSet.insert(Mac1)
     MacsSet.insert(Mac2)
 
+/// Ou com dicionários
+    
+    var MacsDictionary: Dictionary<Mac, String> = [:]
+
+    let Mac3 = Mac(serialNumber: "C1234", capacity: 32, ramMemory: 16, macOSVersion: 17.4)
+    let Mac4 = Mac(serialNumber: "D5678", capacity: 64, ramMemory: 32, macOSVersion: 15.1)
+
+    let owner1 = "Junin"
+    let owner2 = "Mariazinha"
+
+    MacsDictionary[Mac3] = owner1
+    MacsDictionary[Mac4] = owner2
 
 // MARK: O que Acontece nos Bastidores:
 
