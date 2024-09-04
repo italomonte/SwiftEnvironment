@@ -88,8 +88,10 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-DS_Store
-.DS_Store
+
 SwiftData/.DS_Store
 SwiftData/SwiftDataDoZero/.DS_Store
+DS_Store
+.DS_Store
 *.DS_Store
+**/.DS_Store
