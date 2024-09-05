@@ -10,7 +10,6 @@ import MultipeerConnectivity
 
 class HostViewModel: NSObject, ObservableObject {
     
-    
     let hostId: MCPeerID
     let session: MCSession
     let browser: MCNearbyServiceBrowser

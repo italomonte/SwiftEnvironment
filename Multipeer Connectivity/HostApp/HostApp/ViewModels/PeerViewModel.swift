@@ -56,13 +56,6 @@ extension PeerViewModel: MCSessionDelegate {
         guard let message = String(data: data, encoding: .utf8) else {
             return
         }
-        
-        print("message: ", message)
-        
-        
-            
-        
-        
         messagePublisher.send(message)
         
     }
@@ -83,7 +76,6 @@ extension PeerViewModel: MCSessionDelegate {
 
 extension PeerViewModel: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-//        print(peerID)
         permissionRequest = PermitionRequest(
             peerId: peerID,
             onRequest: { [weak self] permission in
