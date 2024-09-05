@@ -27,7 +27,16 @@ struct WithHashable: View {
                             .padding()
                     }
                 }
+                
+                
             }
         }
     }
 }
+
+
+func getData(_ index: Int) {
+
+}
+
+getData(

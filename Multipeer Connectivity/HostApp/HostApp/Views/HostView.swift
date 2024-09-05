@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HostView: View {
     
     @ObservedObject var vm = HostViewModel()
     
@@ -53,5 +53,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HostView()
 }
