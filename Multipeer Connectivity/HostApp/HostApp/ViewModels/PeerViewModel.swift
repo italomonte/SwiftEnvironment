@@ -1,7 +1,6 @@
 
 import Foundation
 import MultipeerConnectivity
-import Combine
 
 class PeerViewModel: NSObject, ObservableObject {
     
@@ -10,12 +9,15 @@ class PeerViewModel: NSObject, ObservableObject {
     let session: MCSession
     let advertiser: MCNearbyServiceAdvertiser
     
-    @Published var showingPermissionRequest = false
+    var invitationHandler: ((Bool, MCSession?) -> Void)?
+    var invitationPeerName = ""
+
+    @Published var showingPermissionRequesttt = false
+    
     var permissionRequest: PermitionRequest?
     
     var isAdvertising = false {
         didSet {
-            print(isAdvertising)
             isAdvertising ? advertiser.startAdvertisingPeer() : advertiser.stopAdvertisingPeer()
         }
     }
@@ -28,6 +30,7 @@ class PeerViewModel: NSObject, ObservableObject {
     
     override init() {
         self.peerId = MCPeerID(displayName: UIDevice.current.name)
+        
         self.session = MCSession(peer: peerId)
         self.advertiser = MCNearbyServiceAdvertiser(peer: peerId, discoveryInfo: nil, serviceType: "nearby-devices")
         
@@ -44,13 +47,22 @@ class PeerViewModel: NSObject, ObservableObject {
             .store(in: &subscriptions)
     }
     
+    func respondToInvitation(accept: Bool) {
+            if let handler = invitationHandler {
+                handler(accept, accept ? session : nil)
+            }
+        }
+    
 }
 
 extension PeerViewModel: MCSessionDelegate {
+    
+    //  É chamado sempre que o estado de conexão de um peer na sessão muda. Isso ocorre quando um peer se conecta, desconecta ou tenta se conectar.
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         
     }
     
+    // Esse método é chamado quando você recebe um pacote de dados (tipo Data) de outro peer.
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("didReceive bytes \(data.count) bytes")
         guard let message = String(data: data, encoding: .utf8) else {
@@ -76,6 +88,10 @@ extension PeerViewModel: MCSessionDelegate {
 
 extension PeerViewModel: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        self.invitationHandler = invitationHandler
+        self.invitationPeerName = peerID.displayName
+        self.showingPermissionRequest = true
+
         permissionRequest = PermitionRequest(
             peerId: peerID,
             onRequest: { [weak self] permission in
@@ -83,8 +99,9 @@ extension PeerViewModel: MCNearbyServiceAdvertiserDelegate {
             }
         )
         hostId = peerId
-        showingPermissionRequest = true
     }
+    
+   
 }
 
 struct PermitionRequest: Identifiable {
