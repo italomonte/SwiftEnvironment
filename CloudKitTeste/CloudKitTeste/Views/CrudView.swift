@@ -40,9 +40,12 @@ struct CrudView: View {
                 // Read
                 Section("Item List") {
                     List {
-                        ForEach (crudVM.toDoItems, id: \.self) { toDoItem in
-                            Text(toDoItem)
-                        }
+                        ForEach (crudVM.toDoItems, id: \.self) { toDoItem  in
+                            Text(toDoItem.title)
+                                .onTapGesture {
+                                    crudVM.updateItem(toDoItem: toDoItem)
+                                }
+                        }.onDelete(perform: crudVM.deleteItem)
                     }
                 }
             }

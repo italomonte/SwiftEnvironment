@@ -9,13 +9,14 @@ import Foundation
 import CloudKit
 import SwiftUI
 
+
 class CrudViewModel: ObservableObject {
     
     var dataVM: DataViewModel
     
     @Published var itemNameValue = ""
     @Published var dateValue = Date()
-    @Published var toDoItems: [String] = []
+    @Published var toDoItems: [ToDoItem] = []
     
     let recordType = "ToDoItem"
     
@@ -25,11 +26,15 @@ class CrudViewModel: ObservableObject {
     }
     
     private func saveDb (record: CKRecord) {
-        self.dataVM.publicDatabase.save(record) { record, error in
+        self.dataVM.publicDatabase.save(record) {[weak self] record, error in
             if let error {
                 print("erro ao salvar dados: \(error)")
                 return
             }
+            
+            self?.itemNameValue = ""
+            self?.dateValue = Date()
+            self?.fetchToDoItems()
             
             print("dados salvos com sucesso")
             
@@ -52,17 +57,19 @@ class CrudViewModel: ObservableObject {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "ToDoItem", predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         let queryOperation = CKQueryOperation(query: query)
         
-        var returnedItems: [String] = []
+        var returnedItems: [ToDoItem] = []
         
         if #available(iOS 15.0, *) {
             queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
                 switch returnedResult {
                 case .success(let record):
                     guard let title = record["title"] as? String else {return}
-                    returnedItems.append(title)
-                    print(title)
+                    guard let date = record["dueDate"] as? Date else {return}
+                    returnedItems.append(ToDoItem(title: title, date: date, record: record))
+                    
                 case .failure(let error) :
                     print("Error recordMatchedBlock: \(error)")
                 }
@@ -70,7 +77,8 @@ class CrudViewModel: ObservableObject {
         } else {
             queryOperation.recordFetchedBlock = { returnedRecord in
                 guard let title = returnedRecord["title"]  as? String else {return}
-                returnedItems.append(title)
+                guard let date = returnedRecord["dueDate"] as? Date else {return}
+                returnedItems.append(ToDoItem(title: title, date: date, record: returnedRecord))
                 
             }
         }
@@ -85,7 +93,7 @@ class CrudViewModel: ObservableObject {
             queryOperation.queryCompletionBlock = { [weak self] returnedCursor, returnedError in
                 print("Returned queryResultBlock")
                 self?.toDoItems = returnedItems
-
+                
             }
         }
         
@@ -97,7 +105,29 @@ class CrudViewModel: ObservableObject {
         self.dataVM.publicDatabase.add(operation)
     }
     
+    func updateItem (toDoItem: ToDoItem) {
+        let record = toDoItem.record
+        record["title"] = "New Name!"
+        saveDb(record: record)
+    }
+    
+    func deleteItem (indexSet: IndexSet) {
+        guard let index = indexSet.first else {return}
+        
+        let toDoItem = toDoItems[index]
+        let record = toDoItem.record
+        
+        dataVM.publicDatabase.delete(withRecordID: record.recordID) { [weak self ] returnedRecordID, returnedError in
+            
+            DispatchQueue.main.async {
+                self?.toDoItems.remove(at: index)
+            }
+            
+        }
+        
+    }
     
     
-
+    
+    
 }
