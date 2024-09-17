@@ -46,7 +46,7 @@ struct Menu: View {
                     
                     
                     NavigationLink {
-                        Text("Images")
+                        ImagesView(dataVM: dataVM)
                     } label: {
                         ButtonMenu(name: "Images", color: .mint, goTo: $navigationVm.privacyViewIsShowing)
                     }

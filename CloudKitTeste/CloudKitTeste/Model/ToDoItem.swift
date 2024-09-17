@@ -8,6 +8,7 @@
 import Foundation
 import CloudKit
 
+
 struct ToDoItem: Hashable {
     var title: String
     var date: Date

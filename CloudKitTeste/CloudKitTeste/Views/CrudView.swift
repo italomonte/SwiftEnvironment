@@ -12,10 +12,10 @@ import CloudKit
 
 struct CrudView: View {
     
-    @ObservedObject var crudVM: CrudViewModel
+    @ObservedObject var vm: CrudViewModel
     
     init(dataVM: DataViewModel) {
-        self.crudVM = CrudViewModel(dataVM: dataVM)
+        self.vm = CrudViewModel(dataVM: dataVM)
     }
     
     var body: some View {
@@ -24,11 +24,11 @@ struct CrudView: View {
                 
                 // Create
                 Section ("Create an item") {
-                    TextField("Item name", text: $crudVM.itemNameValue)
-                    DatePicker("Date Limit", selection: $crudVM.dateValue)
+                    TextField("Item name", text: $vm.itemNameValue)
+                    DatePicker("Date Limit", selection: $vm.dateValue)
                     
                     Button(action: {
-                        crudVM.saveToDoItem()
+                        vm.saveToDoItem()
                     }, label: {
                         Text("Save")
                             .foregroundStyle(Color.accentColor)
@@ -40,12 +40,12 @@ struct CrudView: View {
                 // Read
                 Section("Item List") {
                     List {
-                        ForEach (crudVM.toDoItems, id: \.self) { toDoItem  in
+                        ForEach (vm.toDoItems, id: \.self) { toDoItem  in
                             Text(toDoItem.title)
                                 .onTapGesture {
-                                    crudVM.updateItem(toDoItem: toDoItem)
+                                    vm.updateItem(toDoItem: toDoItem)
                                 }
-                        }.onDelete(perform: crudVM.deleteItem)
+                        }.onDelete(perform: vm.deleteItem)
                     }
                 }
             }
@@ -54,5 +54,8 @@ struct CrudView: View {
             
         }
         .navigationTitle("Crud")
+        .onAppear {
+            vm.fetchToDoItems()
+        }
     }
 }

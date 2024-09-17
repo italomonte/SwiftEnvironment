@@ -26,19 +26,25 @@ class CrudViewModel: ObservableObject {
     }
     
     private func saveDb (record: CKRecord) {
-        self.dataVM.publicDatabase.save(record) {[weak self] record, error in
+        self.dataVM.publicDatabase.save(record) { [weak self] record, error in
             if let error {
                 print("erro ao salvar dados: \(error)")
                 return
             }
             
-            self?.itemNameValue = ""
-            self?.dateValue = Date()
-            self?.fetchToDoItems()
+            DispatchQueue.main.async {
+                self?.itemNameValue = ""
+                self?.dateValue = Date()
+                self?.fetchToDoItems()
+            }
+            
             
             print("dados salvos com sucesso")
             
         }
+        
+        self.fetchToDoItems()
+
     }
     
     func saveToDoItem() {
@@ -85,15 +91,20 @@ class CrudViewModel: ObservableObject {
         
         if #available(iOS 15.0, *) {
             queryOperation.queryResultBlock = { [weak self] returnedResult in
-                print("Returned queryResultBlock: \(returnedResult)")
-                self?.toDoItems = returnedItems
-                print(returnedItems)
+//                print("Returned queryResultBlock: \(returnedResult)")
+                
+                DispatchQueue.main.async {
+                    self?.toDoItems = returnedItems
+
+                }
+//                print(returnedItems)
             }
         } else {
             queryOperation.queryCompletionBlock = { [weak self] returnedCursor, returnedError in
-                print("Returned queryResultBlock")
-                self?.toDoItems = returnedItems
-                
+//                print("Returned queryResultBlock")
+                DispatchQueue.main.async {
+                    self?.toDoItems = returnedItems
+                }
             }
         }
         
