@@ -98,6 +98,21 @@ class ImagesViewModel: ObservableObject {
             }
         }
     
+        func convertCKAssetToUIImage(asset: CKAsset) -> UIImage? {
+            if let assetURL = asset.fileURL {
+                do {
+                    let imageData = try Data(contentsOf: assetURL)
+                    
+                    return UIImage(data: imageData)
+                } catch {
+                    print("Erro ao carregar os dados da imagem: \(error)")
+                    return nil
+                }
+            }
+            
+            return nil
+        }
+    
     func fetchPhotos() {
         
         let predicate = NSPredicate(value: true)
@@ -155,8 +170,8 @@ class ImagesViewModel: ObservableObject {
         self.dataVM.publicDatabase.add(operation)
     }
     
-    func updatePhoto (toDoItem: ToDoItem) {
-        let record = toDoItem.record
+    func updatePhoto (photo: Photo) {
+        let record = photo.record
         record["title"] = "New Name!"
         saveDb(record: record)
     }
@@ -164,8 +179,8 @@ class ImagesViewModel: ObservableObject {
     func deletePhoto (indexSet: IndexSet) {
         guard let index = indexSet.first else {return}
         
-        let toDoItem = photos[index]
-        let record = toDoItem.record
+        let photo = photos[index]
+        let record = photo.record
         
         dataVM.publicDatabase.delete(withRecordID: record.recordID) { [weak self ] returnedRecordID, returnedError in
             

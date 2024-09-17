@@ -61,7 +61,6 @@ struct ImagesView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
-                                .border(.red)
                             
                         } else {
                             Text("Failed to create image")
@@ -70,9 +69,24 @@ struct ImagesView: View {
                     } else {
                         Text("No image selected")
                             .foregroundColor(.gray)
-                            .background(.red)
                     }
                     
+                }
+                
+                Section("Photo List") {
+                    List {
+                        ForEach (vm.photos, id: \.self) { photo  in
+                            LazyVGrid(columns: [GridItem(.fixed(100)), GridItem(.fixed(100))]) {
+                                Text(photo.title)
+                                    .onTapGesture {
+                                        vm.updatePhoto(photo: photo)
+                                    }
+                                Image(uiImage: (vm.convertCKAssetToUIImage(asset: photo.image) ?? UIImage(named: ""))!)
+                                    .frame(width: 200, height: 200)
+                                
+                            }
+                        }.onDelete(perform: vm.deletePhoto)
+                    }
                 }
             }
             
