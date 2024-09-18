@@ -42,7 +42,7 @@ class ImagesViewModel: ObservableObject {
                 return
             }
             
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self?.titleValue = ""
                 self?.imageValue = nil
                 self?.fetchPhotos()
@@ -147,7 +147,7 @@ class ImagesViewModel: ObservableObject {
             queryOperation.queryResultBlock = { [weak self] returnedResult in
 //                print("Returned queryResultBlock: \(returnedResult)")
                 
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     self?.photos = returnedItems
 
                 }
@@ -156,7 +156,7 @@ class ImagesViewModel: ObservableObject {
         } else {
             queryOperation.queryCompletionBlock = { [weak self] returnedCursor, returnedError in
 //                print("Returned queryResultBlock")
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     self?.photos = returnedItems
                 }
             }

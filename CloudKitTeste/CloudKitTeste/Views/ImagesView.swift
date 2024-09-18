@@ -76,16 +76,18 @@ struct ImagesView: View {
                 Section("Photo List") {
                     List {
                         ForEach (vm.photos, id: \.self) { photo  in
-                            LazyVGrid(columns: [GridItem(.fixed(100)), GridItem(.fixed(100))]) {
+                            VStack{
                                 Text(photo.title)
                                     .onTapGesture {
                                         vm.updatePhoto(photo: photo)
                                     }
-                                Image(uiImage: (vm.convertCKAssetToUIImage(asset: photo.image) ?? UIImage(named: ""))!)
+                                Image(uiImage: (vm.convertCKAssetToUIImage(asset: photo.image))!)
+                                    .resizable()
+                                    .scaledToFit()
                                     .frame(width: 200, height: 200)
-                                
                             }
                         }.onDelete(perform: vm.deletePhoto)
+                        
                     }
                 }
             }
