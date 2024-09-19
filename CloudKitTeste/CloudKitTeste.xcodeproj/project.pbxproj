@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6F038F9D2C978E9A0044BD2A /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F038F9C2C978E9A0044BD2A /* ToDoItem.swift */; };
+		6F1BB2102C9A96A200AB34B7 /* PushNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1BB20F2C9A96A200AB34B7 /* PushNotificationsView.swift */; };
+		6F1BB2122C9AA3FF00AB34B7 /* PushNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1BB2112C9AA3FF00AB34B7 /* PushNotificationsViewModel.swift */; };
 		6F2C6E8D2C933B410036AA2C /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C6E8C2C933B410036AA2C /* NavigationViewModel.swift */; };
 		6FC669B62C94673F00BF68D4 /* CrudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC669B52C94673F00BF68D4 /* CrudView.swift */; };
 		6FC669B82C94770A00BF68D4 /* CrudViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC669B72C94770A00BF68D4 /* CrudViewModel.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		6F038F9C2C978E9A0044BD2A /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		6F1BB20F2C9A96A200AB34B7 /* PushNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsView.swift; sourceTree = "<group>"; };
+		6F1BB2112C9AA3FF00AB34B7 /* PushNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsViewModel.swift; sourceTree = "<group>"; };
 		6F2C6E8C2C933B410036AA2C /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		6FC669B52C94673F00BF68D4 /* CrudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrudView.swift; sourceTree = "<group>"; };
 		6FC669B72C94770A00BF68D4 /* CrudViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrudViewModel.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 				6FF505AA2C92774D00629CBB /* Menu.swift */,
 				6FC669B52C94673F00BF68D4 /* CrudView.swift */,
 				6FFEFF762C9939A100608AEF /* ImagesView.swift */,
+				6F1BB20F2C9A96A200AB34B7 /* PushNotificationsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				6F2C6E8C2C933B410036AA2C /* NavigationViewModel.swift */,
 				6FC669B72C94770A00BF68D4 /* CrudViewModel.swift */,
 				6FFEFF782C993AFA00608AEF /* ImagesViewModel.swift */,
+				6F1BB2112C9AA3FF00AB34B7 /* PushNotificationsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -213,8 +219,10 @@
 				6FF505AB2C92774D00629CBB /* Menu.swift in Sources */,
 				6FFEFF7B2C993D6000608AEF /* Photo.swift in Sources */,
 				6FC669B62C94673F00BF68D4 /* CrudView.swift in Sources */,
+				6F1BB2102C9A96A200AB34B7 /* PushNotificationsView.swift in Sources */,
 				6FF505A92C92774D00629CBB /* CloudKitTesteApp.swift in Sources */,
 				6F038F9D2C978E9A0044BD2A /* ToDoItem.swift in Sources */,
+				6F1BB2122C9AA3FF00AB34B7 /* PushNotificationsViewModel.swift in Sources */,
 				6FFEFF792C993AFA00608AEF /* ImagesViewModel.swift in Sources */,
 				6FF505BC2C93154F00629CBB /* DataViewModel.swift in Sources */,
 			);

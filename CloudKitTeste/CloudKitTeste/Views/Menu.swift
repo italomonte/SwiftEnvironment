@@ -26,9 +26,9 @@ struct Menu: View {
                     }
                     
                     NavigationLink {
-                        Text("Authentication")
+                        PushNotificationsView(dataVM: dataVM)
                     } label: {
-                        ButtonMenu(name: "Authentication", color: .purple, goTo: $navigationVm.zonesViewIsShowing)
+                        ButtonMenu(name: "Push Notifications", color: .pink, goTo: $navigationVm.zonesViewIsShowing)
                     }
                     
                     NavigationLink {
@@ -52,9 +52,9 @@ struct Menu: View {
                     }
                     
                     NavigationLink {
-                        Text("PushNotifications")
+                        Text("Authentication")
                     } label: {
-                        ButtonMenu(name: "Push Notifications", color: .pink, goTo: $navigationVm.privacyViewIsShowing)
+                        ButtonMenu(name: "Authentication", color: .purple, goTo: $navigationVm.privacyViewIsShowing)
                     }
                     
                     NavigationLink {
