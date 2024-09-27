@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Menu: View {
+struct MenuInicial: View {
     
     @ObservedObject var dataVM = DataViewModel()
     @ObservedObject var navigationVm = NavigationViewModel()
@@ -15,9 +15,11 @@ struct Menu: View {
     var body: some View {
         NavigationStack{
             ScrollView{
-                LazyHGrid(rows: [GridItem(.flexible(minimum: 100, maximum: .infinity)), GridItem(.flexible(minimum: 100, maximum: .infinity)), GridItem(.flexible(minimum: 100, maximum: .infinity)),
-                                 GridItem(.flexible(minimum: 100, maximum: .infinity))], spacing: 10, content: {
-                
+                LazyHGrid(rows: [
+                    GridItem(.flexible(minimum: 100, maximum: .infinity)),
+                    GridItem(.flexible(minimum: 100, maximum: .infinity)),
+                    GridItem(.flexible(minimum: 100, maximum: .infinity))], spacing: 10, content: {
+                    
                     
                     NavigationLink {
                         CrudView(dataVM: dataVM)
@@ -31,37 +33,34 @@ struct Menu: View {
                         ButtonMenu(name: "Push Notifications", color: .pink, goTo: $navigationVm.zonesViewIsShowing)
                     }
                     
-                    NavigationLink {
-                        Text("Shared")
-                    } label: {
-                        ButtonMenu(name: "Shared", color: .orange, goTo: $navigationVm.sharedRecordViewIsShowing)
-                    }
-                    
-                    NavigationLink {
-                        Text("Zones")
-                    } label: {
-                        ButtonMenu(name: "Zones", color: .secondary, goTo: $navigationVm.privacyViewIsShowing)
-                    }
-                    
-                    
+                        NavigationLink {
+                            ShareView(dataVM: dataVM)
+                        } label: {
+                            ButtonMenu(name: "Shared", color: .orange, goTo: $navigationVm.sharedRecordViewIsShowing)
+                        }
                     
                     NavigationLink {
                         ImagesView(dataVM: dataVM)
                     } label: {
                         ButtonMenu(name: "Images", color: .mint, goTo: $navigationVm.privacyViewIsShowing)
                     }
+                        
+                    
                     
                     NavigationLink {
-                        Text("Authentication")
+                        ZonesView(dataVM: dataVM)
                     } label: {
-                        ButtonMenu(name: "Authentication", color: .purple, goTo: $navigationVm.privacyViewIsShowing)
+                        ButtonMenu(name: "Zones", color: .purple, goTo: $navigationVm.privacyViewIsShowing)
                     }
+                        
+                    
                     
                     NavigationLink {
-                        Text("Privacy")
+                        RateLimitView(dataVM: dataVM)
                     } label: {
-                        ButtonMenu(name: "Privacy", color: .indigo, goTo: $navigationVm.privacyViewIsShowing)
-                    }
+                        ButtonMenu(name: "Rate Limiting", color: .gray, goTo: $navigationVm.privacyViewIsShowing)
+                    }.disabled(true)
+                    
                 })
                 .padding()
             }
@@ -70,12 +69,29 @@ struct Menu: View {
             .fullScreenCover(isPresented: $navigationVm.crudViewIsShowing, content: {
                 Text("crud")
             })
+            .toolbar {
+                ToolbarItem {
+                    HStack{
+                        Text("\(dataVM.error)")
+                            .foregroundStyle(.red)
+                            .bold()
+                            .font(.headline)
+                        
+                        Circle()
+                            .frame(width: 20)
+                            .foregroundStyle(dataVM.isSignInToiCloud ? .green : .red)
+                        
+                    }
+                }
+            }
+            
         }
+        
         
     }
 }
 
 
 #Preview {
-    Menu()
+    MenuInicial()
 }

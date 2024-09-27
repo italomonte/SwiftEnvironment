@@ -7,6 +7,8 @@
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
 		<string>iCloud.net.idserve.emao.iCalories</string>
+		<string>iCloud.net.idserve.emao.CloudKitTeste</string>
+		<string>net.idserve.emao.CloudKitTeste</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>

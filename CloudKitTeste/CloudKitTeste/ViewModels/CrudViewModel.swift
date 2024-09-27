@@ -16,34 +16,60 @@ class CrudViewModel: ObservableObject {
     
     @Published var itemNameValue = ""
     @Published var dateValue = Date()
+    @Published var privateDB = false
     @Published var toDoItems: [ToDoItem] = []
+    @Published var toDoItemsPrivate: [ToDoItem] = []
     
     let recordType = "ToDoItem"
     
     init(dataVM: DataViewModel) {
         self.dataVM = dataVM
-        fetchToDoItems()
+        fetchToDoItems(privateDB: true)
+        fetchToDoItems(privateDB: false)
     }
     
     private func saveDb (record: CKRecord) {
-        self.dataVM.publicDatabase.save(record) { [weak self] record, error in
-            if let error {
-                print("erro ao salvar dados: \(error)")
-                return
+        if self.privateDB {
+            self.dataVM.privateDatabase.save(record) { [weak self] record, error in
+                if let error {
+                    print("erro ao salvar dados: \(error)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self?.itemNameValue = ""
+                    self?.dateValue = Date()
+                    self?.fetchToDoItems(privateDB: true)
+
+                }
+                
+                print("dados salvos com sucesso no private")
+            }
+            fetchToDoItems(privateDB: true)
+
+        } else {
+            self.dataVM.publicDatabase.save(record) { [weak self] record, error in
+                if let error {
+                    print("erro ao salvar dados: \(error)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self?.itemNameValue = ""
+                    self?.dateValue = Date()
+                    self?.fetchToDoItems(privateDB: false)
+
+                }
+                
+                print("dados salvos com sucesso no public")
+               
             }
             
-            DispatchQueue.main.async {
-                self?.itemNameValue = ""
-                self?.dateValue = Date()
-                self?.fetchToDoItems()
-            }
-            
-            
-            print("dados salvos com sucesso")
-            
+            fetchToDoItems(privateDB: false)
         }
         
-        self.fetchToDoItems()
+        fetchToDoItems(privateDB: true)
+        fetchToDoItems(privateDB: false)
 
     }
     
@@ -59,7 +85,7 @@ class CrudViewModel: ObservableObject {
         
     }
     
-    func fetchToDoItems() {
+    func fetchToDoItems(privateDB: Bool) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "ToDoItem", predicate: predicate)
@@ -94,8 +120,11 @@ class CrudViewModel: ObservableObject {
 //                print("Returned queryResultBlock: \(returnedResult)")
                 
                 DispatchQueue.main.async {
-                    self?.toDoItems = returnedItems
-
+                    if privateDB {
+                        self?.toDoItemsPrivate = returnedItems
+                    } else {
+                        self?.toDoItems = returnedItems
+                    }
                 }
 //                print(returnedItems)
             }
@@ -103,17 +132,27 @@ class CrudViewModel: ObservableObject {
             queryOperation.queryCompletionBlock = { [weak self] returnedCursor, returnedError in
 //                print("Returned queryResultBlock")
                 DispatchQueue.main.async {
-                    self?.toDoItems = returnedItems
+                    if privateDB {
+                        self?.toDoItemsPrivate = returnedItems
+                    } else {
+                        self?.toDoItems = returnedItems
+
+                    }
                 }
             }
         }
         
-        addOperation(operation: queryOperation)
+        addOperation(operation: queryOperation, privateDB: privateDB)
         
     }
     
-    func addOperation(operation: CKDatabaseOperation) {
-        self.dataVM.publicDatabase.add(operation)
+    func addOperation(operation: CKDatabaseOperation, privateDB: Bool) {
+        if privateDB {
+            self.dataVM.privateDatabase.add(operation)
+        } else {
+            self.dataVM.publicDatabase.add(operation)
+
+        }
     }
     
     func updateItem (toDoItem: ToDoItem) {
@@ -138,6 +177,21 @@ class CrudViewModel: ObservableObject {
         
     }
     
+    func deleteItemPrivate (indexSet: IndexSet) {
+        guard let index = indexSet.first else {return}
+        
+        let toDoItem = toDoItemsPrivate[index]
+        let record = toDoItem.record
+        
+        dataVM.privateDatabase.delete(withRecordID: record.recordID) { [weak self ] returnedRecordID, returnedError in
+            
+            DispatchQueue.main.async {
+                self?.toDoItemsPrivate.remove(at: index)
+            }
+            
+        }
+        
+    }
     
     
     

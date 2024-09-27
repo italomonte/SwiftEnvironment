@@ -26,6 +26,9 @@ struct CrudView: View {
                 Section ("Create an item") {
                     TextField("Item name", text: $vm.itemNameValue)
                     DatePicker("Date Limit", selection: $vm.dateValue)
+                    Toggle(isOn: $vm.privateDB) {
+                        Text("save in private")
+                    }
                     
                     Button(action: {
                         vm.saveToDoItem()
@@ -38,7 +41,7 @@ struct CrudView: View {
                 }
                 
                 // Read
-                Section("Item List") {
+                Section("Public Item List") {
                     List {
                         ForEach (vm.toDoItems, id: \.self) { toDoItem  in
                             Text(toDoItem.title)
@@ -48,6 +51,17 @@ struct CrudView: View {
                         }.onDelete(perform: vm.deleteItem)
                     }
                 }
+                
+                Section("Private Item List") {
+                    List {
+                        ForEach (vm.toDoItemsPrivate, id: \.self) { toDoItem  in
+                            Text(toDoItem.title)
+                                .onTapGesture {
+                                    vm.updateItem(toDoItem: toDoItem)
+                                }
+                        }.onDelete(perform: vm.deleteItemPrivate)
+                    }
+                }
             }
             
             
@@ -55,7 +69,8 @@ struct CrudView: View {
         }
         .navigationTitle("Crud")
         .onAppear {
-            vm.fetchToDoItems()
+            vm.fetchToDoItems(privateDB: true)
+            vm.fetchToDoItems(privateDB: false)
         }
     }
 }

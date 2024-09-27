@@ -13,7 +13,7 @@ struct CloudKitTesteApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Menu()
+            MenuInicial()
         }
     }
 }
